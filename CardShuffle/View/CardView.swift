@@ -22,7 +22,7 @@ struct CardView: View {
             } else {
                 RoundedRectangle(cornerRadius: cornerRadius).fill()
             }
-        }
+        }.aspectRatio(2/3, contentMode: .fit)
     }
     
 }

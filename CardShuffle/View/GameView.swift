@@ -11,6 +11,12 @@ import SwiftUI
 struct GameView: View {
     var viewModel: EmojiMemoryGame
     
+    var font: Font {
+        viewModel.cards.count / 2 > 4
+            ? Font.body
+            : Font.largeTitle
+    }
+    
     var body: some View {
         HStack {
             ForEach(viewModel.cards) { card in
@@ -21,7 +27,7 @@ struct GameView: View {
         }
         .padding()
         .foregroundColor(.orange)
-        .font(.largeTitle)
+        .font(font)
     }
 }
 

@@ -19,6 +19,7 @@ struct MemoryGame<CardContent: StringProtocol> {
             cards.append(Card(id: pairIndex*2, content: cardContent))
             cards.append(Card(id: pairIndex*2+1, content: cardContent))
         }
+        cards.shuffle()
     }
     
     func choose(card: Card) {
