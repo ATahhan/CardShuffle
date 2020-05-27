@@ -22,17 +22,17 @@ struct MemoryGame<CardContent: StringProtocol> {
         cards.shuffle()
     }
     
-    func choose(card: Card) {
-        guard var card = cards.first(where: { $0.id == card.id }) else {
+    mutating func choose(card: Card) {
+        guard let index = cards.firstIndex(where: { $0.id == card.id }) else {
             assertionFailure("Card chosen in view not found in model.")
             return
         }
-        card.isFaceUp.toggle()
+        cards[index].isFaceUp.toggle()
     }
     
     struct Card: Identifiable {
         var id: Int
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         var content: CardContent
     }

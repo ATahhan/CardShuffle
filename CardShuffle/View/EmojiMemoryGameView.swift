@@ -1,5 +1,5 @@
 //
-//  GameView.swift
+//  EmojiMemoryGameView.swift
 //  CardShuffle
 //
 //  Created by Ammar Altahhan on 26/05/2020.
@@ -8,14 +8,8 @@
 
 import SwiftUI
 
-struct GameView: View {
-    var viewModel: EmojiMemoryGame
-    
-    var font: Font {
-        viewModel.cards.count / 2 > 4
-            ? Font.body
-            : Font.largeTitle
-    }
+struct EmojiMemoryGameView: View {
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
         HStack {
@@ -27,13 +21,12 @@ struct GameView: View {
         }
         .padding()
         .foregroundColor(.orange)
-        .font(font)
     }
 }
 
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(viewModel: EmojiMemoryGame())
+        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
     }
 }

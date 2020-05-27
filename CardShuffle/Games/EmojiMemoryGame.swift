@@ -6,11 +6,11 @@
 //  Copyright © 2020 Ammar Altahhan. All rights reserved.
 //
 
-import Foundation
+import Combine
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     
-    private var model: MemoryGame<String> = createEmojiGame()
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createEmojiGame()
     
     static func createEmojiGame() -> MemoryGame<String> {
         let emojis = ["☕️", "🍨", "🥮", "🍫", "🍯"]
