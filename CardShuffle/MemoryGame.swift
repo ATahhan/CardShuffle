@@ -8,9 +8,23 @@
 
 import Foundation
 
-struct MemoryGame<CardContent: StringProtocol> {
+struct MemoryGame<CardContent> where CardContent: StringProtocol {
     
     var cards: Array<Card>
+    
+    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            let faceUpCardsIndices = cards.indices.filter { cards[$0].isFaceUp }
+            return faceUpCardsIndices.count == 1
+                ? faceUpCardsIndices.first
+                : nil
+        }
+        set {
+            for index in cards.indices {
+                cards[index].isFaceUp = index == newValue
+            }
+        }
+    }
     
     init(numberOfPairs: Int, cardContentCompletion: (Int) -> CardContent) {
         cards = []
@@ -27,10 +41,20 @@ struct MemoryGame<CardContent: StringProtocol> {
             assertionFailure("Card chosen in view not found in model.")
             return
         }
-        cards[index].isFaceUp.toggle()
+        
+        if !cards[index].isFaceUp, !cards[index].isMatched {
+            if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                let matched = cards[index].content == cards[potentialMatchIndex].content
+                cards[index].isMatched = matched
+                cards[potentialMatchIndex].isMatched = matched
+                cards[index].isFaceUp = true
+            } else {
+                indexOfTheOneAndOnlyFaceUpCard = index
+            }
+        }
     }
     
-    struct Card: Identifiable {
+    struct Card: Identifiable, Equatable {
         var id: Int
         var isFaceUp: Bool = false
         var isMatched: Bool = false

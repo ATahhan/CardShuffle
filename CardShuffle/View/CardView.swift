@@ -23,11 +23,10 @@ struct CardView: View {
                 RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: strokeLineWidth)
                 Text(card.content)
-            } else {
+            } else if !card.isMatched {
                 RoundedRectangle(cornerRadius: cornerRadius).fill()
             }
         }
-        .aspectRatio(aspectRatio, contentMode: .fit)
         .font(fontSize(forGeometrySize: size))
     }
     
