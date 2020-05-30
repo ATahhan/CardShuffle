@@ -11,3 +11,6 @@ Sample code of the card shuffle game from CS193p Stanford University's course. F
 After forking this repo, you can open a PR from this branch to the `base` branch to see what changed exactly.
 
 - `lecture-3` branch contains the code as shown at the end of the [third lecture](https://www.youtube.com/watch?v=SIYdYpPXil4&amp;list=PLpGHT1n4-mAtTj9oywMWoBx0dCGd51_yG&amp;index=3). You can open a PR from this branch to the `assignment-1` branch to see what changed exactly.
+
+- `lecture-4` branch contains the code as shown at the end of the [fourth lectyre](https://www.youtube.com/watch?v=eHEeWzFP6O4&list=PLpGHT1n4-mAtTj9oywMWoBx0dCGd51_yG). You can open a PR from this branch to the `lecture-3` branch to see what changed exactly.
+Notes added on this lecture's code in [CS193p-GoThrough](https://github.com/ATahhan/cs193p-gothrough) repo.
