@@ -14,3 +14,5 @@ After forking this repo, you can open a PR from this branch to the `base` branch
 
 - `lecture-4` branch contains the code as shown at the end of the [fourth lectyre](https://www.youtube.com/watch?v=eHEeWzFP6O4&list=PLpGHT1n4-mAtTj9oywMWoBx0dCGd51_yG). You can open a PR from this branch to the `lecture-3` branch to see what changed exactly.
 Notes added on this lecture's code in [CS193p-GoThrough](https://github.com/ATahhan/cs193p-gothrough) repo.
+
+- `assignment-2` branch contains the solution to Assignment 2 added to the end of Lecture 4. Open a PR to `lecture-4` to see the solutions. You can read my notes on this one [here](https://github.com/ATahhan/cs193p-gothrough).
