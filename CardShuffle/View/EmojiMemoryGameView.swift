@@ -12,15 +12,42 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        Grid(viewModel.cards) { card in
-            CardView(card: card).onTapGesture {
-                self.viewModel.choose(card: card)
+        VStack(spacing: 16) {
+            VStack {
+                Text(viewModel.title)
+                    .font(.system(size: 32, weight: .black))
+                Text("Current Score: \(viewModel.currentScore)")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(viewModel.color)
+                    .frame(minWidth: 300)
             }
-            .padding(4)
+            Group {
+                if !viewModel.isPlaying {
+                    Button("New Game") {
+                        self.viewModel.startNewGame()
+                    }
+                    .frame(width: 180, height: 55)
+                    .foregroundColor(.white)
+                    .background(viewModel.color)
+                    .cornerRadius(cornerRadius)
+                    .font(.headline)
+                } else {
+                    Grid(viewModel.cards) { card in
+                        CardView(card: card).onTapGesture {
+                            self.viewModel.choose(card: card)
+                        }
+                        .padding(4)
+                    }
+                    .foregroundColor(viewModel.color)
+                }
+            }
         }
-        .padding(8)
-        .foregroundColor(.orange)
+        .padding()
     }
+    
+    // MARK: - Constants
+    
+    let cornerRadius: CGFloat = 8
 }
 
 

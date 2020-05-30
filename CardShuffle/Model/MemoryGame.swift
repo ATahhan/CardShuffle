@@ -26,6 +26,10 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
         }
     }
     
+    var isPlaying: Bool
+    
+    var score: Int = 0
+    
     init(numberOfPairs: Int, cardContentCompletion: (Int) -> CardContent) {
         cards = []
         for pairIndex in 0..<numberOfPairs {
@@ -34,6 +38,7 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
             cards.append(Card(id: pairIndex*2+1, content: cardContent))
         }
         cards.shuffle()
+        isPlaying = true
     }
     
     mutating func choose(card: Card) {
@@ -44,20 +49,41 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
         
         if !cards[index].isFaceUp, !cards[index].isMatched {
             if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
-                let matched = cards[index].content == cards[potentialMatchIndex].content
-                cards[index].isMatched = matched
-                cards[potentialMatchIndex].isMatched = matched
+                let isMatched = cards[index].content == cards[potentialMatchIndex].content
+                cards[potentialMatchIndex].isMatched = isMatched
+                cards[index].isMatched = isMatched
                 cards[index].isFaceUp = true
+                
+                updateScore(firstMatchIndex: potentialMatchIndex, secondMatchIndex: index)
+                
+                if cards.first(where: { !$0.isMatched }) == nil {
+                    finishGame()
+                }
+                
+                cards[potentialMatchIndex].isSeen = true
+                cards[index].isSeen = true
             } else {
                 indexOfTheOneAndOnlyFaceUpCard = index
             }
         }
     }
     
+    mutating func updateScore(firstMatchIndex: Int, secondMatchIndex: Int) {
+        let isCorrect = cards[firstMatchIndex].content == cards[secondMatchIndex].content
+        // Subtracts 1 per unseen card
+        let subtractAmount = [cards[firstMatchIndex], cards[secondMatchIndex]].map(\.isSeen).reduce(0, { $1 ? $0 + 1 : $0 })
+        score = isCorrect ? score + 2 : max(score - subtractAmount, 0)
+    }
+    
+    mutating func finishGame() {
+        isPlaying = false
+    }
+    
     struct Card: Identifiable, Equatable {
         var id: Int
         var isFaceUp: Bool = false
         var isMatched: Bool = false
+        var isSeen: Bool = false
         var content: CardContent
     }
     
