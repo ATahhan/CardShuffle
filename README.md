@@ -1,4 +1,5 @@
 # CardShuffle
+
 Sample code of the card shuffle game from CS193p Stanford University's course. Fork this repo to be able to open PRs and observe changes between different states of the project shown in the Setup section below.
 
 ## Project Setup
@@ -16,3 +17,5 @@ After forking this repo, you can open a PR from this branch to the `base` branch
 Notes added on this lecture's code in [CS193p-GoThrough](https://github.com/ATahhan/cs193p-gothrough) repo.
 
 - `assignment-2` branch contains the solution to [assignment 2](https://cs193p.sites.stanford.edu/sites/g/files/sbiybj16636/files/media/file/a2_0.pdf) added to the end of Lecture 4. Open a PR to `lecture-4` branch to see the solutions. Please read [this](https://github.com/ATahhan/cs193p-gothrough/tree/master#assignment-2) first.
+
+- `lecture-5` branch contains the code almost as presented at the end of [Lecture 5](https://www.youtube.com/watch?v=oDKDGCRdSHc), nothing much changed there, adding only the concept of ACL, ViewBuilder and ViewModifier.
