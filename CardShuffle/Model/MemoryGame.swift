@@ -10,9 +10,9 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: StringProtocol {
     
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     
-    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+    private var indexOfTheOneAndOnlyFaceUpCard: Int? {
         get {
             let faceUpCardsIndices = cards.indices.filter { cards[$0].isFaceUp }
             return faceUpCardsIndices.count == 1
@@ -26,9 +26,9 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
         }
     }
     
-    var isPlaying: Bool
+    private(set) var isPlaying: Bool
     
-    var score: Int = 0
+    private(set) var score: Int = 0
     
     init(numberOfPairs: Int, cardContentCompletion: (Int) -> CardContent) {
         cards = []
@@ -68,14 +68,14 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
         }
     }
     
-    mutating func updateScore(firstMatchIndex: Int, secondMatchIndex: Int) {
+    private mutating func updateScore(firstMatchIndex: Int, secondMatchIndex: Int) {
         let isCorrect = cards[firstMatchIndex].content == cards[secondMatchIndex].content
         // Subtracts 1 per unseen card
         let subtractAmount = [cards[firstMatchIndex], cards[secondMatchIndex]].map(\.isSeen).reduce(0, { $1 ? $0 + 1 : $0 })
         score = isCorrect ? score + 2 : max(score - subtractAmount, 0)
     }
     
-    mutating func finishGame() {
+    private mutating func finishGame() {
         isPlaying = false
     }
     

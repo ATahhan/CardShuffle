@@ -47,12 +47,14 @@ struct EmojiMemoryGameView: View {
     
     // MARK: - Constants
     
-    let cornerRadius: CGFloat = 8
+    private let cornerRadius: CGFloat = 8
 }
 
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+        let game = EmojiMemoryGame(themeProvider: EmojiMemoryGameThemeProvider.plants)
+        game.choose(card: game.cards[0])
+        return EmojiMemoryGameView(viewModel: game)
     }
 }

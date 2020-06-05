@@ -12,7 +12,7 @@ class EmojiMemoryGame: ObservableObject {
     
     @Published private var model: MemoryGame<String>!
     
-    var themeProvider: EmojiMemoryGameThemeContract!
+    private var themeProvider: EmojiMemoryGameThemeContract!
     
     /// Creates a game with a random theme
     init() {

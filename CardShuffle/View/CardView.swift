@@ -17,26 +17,23 @@ struct CardView: View {
         }
     }
     
+    @ViewBuilder
     func body(for size: CGSize) -> some View {
-        ZStack {
-            if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: strokeLineWidth)
+        if card.isFaceUp || !card.isMatched {
+            ZStack {
+                Pie(startAngle: .degrees(-90), endAngle: .degrees(20))
+                    .padding(4).opacity(0.4)
                 Text(card.content)
-            } else if !card.isMatched {
-                RoundedRectangle(cornerRadius: cornerRadius).fill()
             }
+            .cardify(isFaceUp: card.isFaceUp)
+            .font(fontSize(forGeometrySize: size))
         }
-        .font(fontSize(forGeometrySize: size))
     }
     
     // MARK: - Constants
     
-    let cornerRadius: CGFloat = 10
-    let strokeLineWidth: CGFloat = 2
-    var aspectRatio: CGFloat { 2/3 }
-    func fontSize(forGeometrySize size: CGSize) -> Font {
-        Font.system(size: min(size.width, size.height) * 0.75)
+    private func fontSize(forGeometrySize size: CGSize) -> Font {
+        Font.system(size: min(size.width, size.height) * 0.7)
     }
     
 }
