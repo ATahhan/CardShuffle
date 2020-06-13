@@ -20,4 +20,4 @@ Notes added on this lecture's code in [CS193p-GoThrough](https://github.com/ATah
 
 - `lecture-5` branch contains the code almost as presented at the end of [Lecture 5](https://www.youtube.com/watch?v=oDKDGCRdSHc), nothing much changed there, adding only the concept of ACL, ViewBuilder and ViewModifier.
 
-- `lecture-6` branch contains the code almost as presented at the end of [Lecture 6](https://www.youtube.com/watch?v=3krC2c56ceQ), game is all completed now 🎉
+- `lecture-6` branch contains the code almost as presented at the end of with some additions [Lecture 6](https://www.youtube.com/watch?v=3krC2c56ceQ), game is all completed now 🎉. Still though some feature aren't working as expected (for example the bonus shown isn't correct, I'll have to revisit that one).
