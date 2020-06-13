@@ -24,21 +24,17 @@ class EmojiMemoryGame: ObservableObject {
     init(themeProvider: EmojiMemoryGameThemeContract) {
         self.themeProvider = themeProvider
         let emojis = themeProvider.emojiList
-        let randomNumberOfPairs = themeProvider.numberOfPairs.value
+        let randomNumberOfPairs = themeProvider.numberOfPairs
         
-        model = MemoryGame<String>(numberOfPairs: randomNumberOfPairs) { (index) -> String in
-            emojis[index % emojis.count]
-        }
+        model = MemoryGame<String>(numberOfPairs: randomNumberOfPairs) { emojis[$0] }
     }
     
     private func generateRandomNewGame() {
         themeProvider = EmojiMemoryGameThemeProvider.allCases.randomElement() ?? .halloween
         let emojis = themeProvider.emojiList
-        let randomNumberOfPairs = themeProvider.numberOfPairs.value
+        let randomNumberOfPairs = themeProvider.numberOfPairs
         
-        model = MemoryGame<String>(numberOfPairs: randomNumberOfPairs) { (index) -> String in
-            emojis[index % emojis.count]
-        }
+        model = MemoryGame<String>(numberOfPairs: randomNumberOfPairs) { emojis[$0] }
     }
     
     // MARK: - Access to the Model

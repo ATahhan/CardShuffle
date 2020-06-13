@@ -24,7 +24,9 @@ struct EmojiMemoryGameView: View {
             Group {
                 if !viewModel.isPlaying {
                     Button("New Game") {
-                        self.viewModel.startNewGame()
+                        withAnimation(Animation.spring()) {
+                            self.viewModel.startNewGame()
+                        }
                     }
                     .frame(width: 180, height: 55)
                     .foregroundColor(.white)
@@ -34,7 +36,9 @@ struct EmojiMemoryGameView: View {
                 } else {
                     Grid(viewModel.cards) { card in
                         CardView(card: card).onTapGesture {
-                            self.viewModel.choose(card: card)
+                            withAnimation(.linear) {
+                                self.viewModel.choose(card: card)
+                            }
                         }
                         .padding(4)
                     }

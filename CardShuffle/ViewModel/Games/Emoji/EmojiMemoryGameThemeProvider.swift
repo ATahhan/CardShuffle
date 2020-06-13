@@ -25,7 +25,7 @@ enum EmojiMemoryGameThemeProvider: String, CaseIterable, EmojiMemoryGameThemeCon
         rawValue
     }
     
-    var numberOfPairs: MemoryGameNumberOfPairs {
+    var preferredNumberOfPairs: MemoryGameNumberOfPairs {
         switch self {
         case .beach:
             return .constant(8)

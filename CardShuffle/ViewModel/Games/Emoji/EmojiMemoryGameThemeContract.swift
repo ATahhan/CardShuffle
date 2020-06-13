@@ -14,7 +14,7 @@ protocol EmojiMemoryGameThemeContract {
     var name: String { get }
     
     /// Number of pairs of cards shown in each game
-    var numberOfPairs: MemoryGameNumberOfPairs { get }
+    var preferredNumberOfPairs: MemoryGameNumberOfPairs { get }
     
     /// Array of emojis to use with this game theme. Provide at least 10 emojis to ensure nothing is duplicated.
     var emojiList: [String] { get }
@@ -22,4 +22,10 @@ protocol EmojiMemoryGameThemeContract {
     /// The prefered color to use with this theme.
     var color: Color { get }
     
+}
+
+extension EmojiMemoryGameThemeContract {
+    var numberOfPairs: Int {
+        min(preferredNumberOfPairs.value, emojiList.count)
+    }
 }

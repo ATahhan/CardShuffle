@@ -19,3 +19,5 @@ Notes added on this lecture's code in [CS193p-GoThrough](https://github.com/ATah
 - `assignment-2` branch contains the solution to [assignment 2](https://cs193p.sites.stanford.edu/sites/g/files/sbiybj16636/files/media/file/a2_0.pdf) added to the end of Lecture 4. Open a PR to `lecture-4` branch to see the solutions. Please read [this](https://github.com/ATahhan/cs193p-gothrough/tree/master#assignment-2) first.
 
 - `lecture-5` branch contains the code almost as presented at the end of [Lecture 5](https://www.youtube.com/watch?v=oDKDGCRdSHc), nothing much changed there, adding only the concept of ACL, ViewBuilder and ViewModifier.
+
+- `lecture-6` branch contains the code almost as presented at the end of [Lecture 6](https://www.youtube.com/watch?v=3krC2c56ceQ), game is all completed now 🎉

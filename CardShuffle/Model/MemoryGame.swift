@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> where CardContent: StringProtocol {
+struct MemoryGame<CardContent> where CardContent: DrawableContent {
     
     private(set) var cards: Array<Card>
     
@@ -49,7 +49,7 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
         
         if !cards[index].isFaceUp, !cards[index].isMatched {
             if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
-                let isMatched = cards[index].content == cards[potentialMatchIndex].content
+                let isMatched = cards[index] == cards[potentialMatchIndex]
                 cards[potentialMatchIndex].isMatched = isMatched
                 cards[index].isMatched = isMatched
                 cards[index].isFaceUp = true
@@ -69,7 +69,7 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
     }
     
     private mutating func updateScore(firstMatchIndex: Int, secondMatchIndex: Int) {
-        let isCorrect = cards[firstMatchIndex].content == cards[secondMatchIndex].content
+        let isCorrect = cards[firstMatchIndex] == cards[secondMatchIndex]
         // Subtracts 1 per unseen card
         let subtractAmount = [cards[firstMatchIndex], cards[secondMatchIndex]].map(\.isSeen).reduce(0, { $1 ? $0 + 1 : $0 })
         score = isCorrect ? score + 2 : max(score - subtractAmount, 0)
@@ -81,10 +81,72 @@ struct MemoryGame<CardContent> where CardContent: StringProtocol {
     
     struct Card: Identifiable, Equatable {
         var id: Int
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
+        var isFaceUp: Bool = false {
+            didSet {
+                if isFaceUp {
+                    startUsingBonusTime()
+                } else {
+                    stopUsingBonusTime()
+                }
+            }
+        }
+        var isMatched: Bool = false {
+            didSet {
+                stopUsingBonusTime()
+            }
+        }
         var isSeen: Bool = false
         var content: CardContent
+        
+        
+        // MARK: - Bonus Time
+        
+        let bonusTimeLimit: TimeInterval = 6
+        
+        private var faceUpTime: TimeInterval {
+            if let lastFaceUpDate = self.lastFaceUpDate {
+                return pastFaceUpTime + Date().timeIntervalSince(lastFaceUpDate)
+            } else {
+                return pastFaceUpTime
+            }
+        }
+        
+        var lastFaceUpDate: Date?
+        
+        var pastFaceUpTime: TimeInterval = 0
+        
+        var bonusTimeRemaining: TimeInterval {
+            max(0, bonusTimeLimit - pastFaceUpTime)
+        }
+        
+        var bonusRemaining: Double {
+            (bonusTimeLimit > 0 && bonusTimeRemaining > 0) ? bonusTimeRemaining / bonusTimeLimit : 0
+        }
+        
+        var hasEarnedBonus: Bool {
+            isMatched && bonusTimeRemaining > 0
+        }
+        
+        var isConsumingBonusTime: Bool {
+            isFaceUp && !isMatched && bonusTimeRemaining > 0
+        }
+        
+        private mutating func startUsingBonusTime() {
+            if isConsumingBonusTime, lastFaceUpDate == nil {
+                lastFaceUpDate = Date()
+            }
+        }
+        
+        private mutating func stopUsingBonusTime() {
+            pastFaceUpTime = faceUpTime
+            lastFaceUpDate = nil
+        }
+        
+        
+        static func == (lhs: MemoryGame<CardContent>.Card, rhs: MemoryGame<CardContent>.Card) -> Bool {
+            let ids = [lhs.id, rhs.id].sorted()
+            return (ids[1] - ids[0] == 1) && (ids[1] % 2 != 0)
+        }
     }
     
 }
